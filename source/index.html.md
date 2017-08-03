@@ -3,13 +3,9 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='https://github.com/tripit/slate'>Powered by Slate</a>
 
 includes:
   - errors
@@ -19,221 +15,213 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Welcome to the Tankfarm API (TF-api). You can use our API to access Tankfarm endpoints.
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
 ```shell
-# With shell, you can just pass the correct header with each request
+# pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "Authorization: Token token=stage_123"
 ```
 
-```javascript
-const kittn = require('kittn');
+> Make sure to replace `stage_123` with your API key.
 
-let api = kittn.authorize('meowmeowmeow');
-```
+TF-api uses API keys to allow access to the API. You can request an API
+key from daniel@tankfarmgroup.com.
 
-> Make sure to replace `meowmeowmeow` with your API key.
+TF-api expects the API key to be included in all API requests to the server in
+a header that looks like the following:
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+`Authorization: Token token=stage_123`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>stage_123</code> with your personal API key.
 </aside>
 
-# Kittens
+# Engage/Brandcraft
 
-## Get All Kittens
+## Get quote
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+> To get a quote, use this code:
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+curl "https://some_url.com/api/v1/quotes"
+-H "Authorization: Token token=stage_123"
+--data '{"zipcode": "11001", "annual_usage": 100, "owns_tank": true}'
+--header 'content-type: application/json'
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+{
+  "data":{
+    "id":null,
+    "type":"quotes",
+    "links":{
+      "self":"/api/v1/quotes/"
+    },
+    "attributes":{
+      "zipcode":"11001",
+      "annual-usage":100,
+      "owns-tank":true,
+      "price":"3.9717",
+      "city":"Floral Park",
+      "state":"NY",
+      "supplier-name":"ABC Propane",
+      "supplier-description": "Your wonderful supplier."
+    }
   }
-]
+}
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves quotes.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://some_url.com/api/v1/quotes`
 
-### Query Parameters
+### Request body parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Parameter | Type | Description
+--------- | ---- | -----------
+zipcode | String | Five digit US postal ZIP code.
+annual_usage | Integer | Gallons of propane used per year.
+owns_tank | Boolean | Does applicant own their propane tank?
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+<aside class="notice">
+For this particular request body parameters use underscores while the returned JSON
+uses dashes.
 </aside>
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+## Create an applicant
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+curl "https://some_url.com/api/v1/engage-leads"
+-H "Authorization: Token token=stage_123"
+--data
+  '{
+    "data": {
+      "type": "engage-leads",
+      "attributes": {
+        "name": "Mars Rover",
+        "email": "msrover9a@test.com",
+        "address": "123 Somewhere",
+        "city": "Assonet",
+        "state": "MA",
+        "zipcode": "02702",
+        "phone": "(888) 555-1212",
+        "metadata": {
+          "propane_use": ["primary_heat-medium", "hot_water", "cooking_range"],
+          "owns_tank": true,
+          "annual_usage": 500,
+          "underground_tank": false,
+          "tank_count": 2,
+          "total_tank_size": 700,
+          "previous_supplier": "prev sup",
+          "quote": {
+            "ppg": 2.18,
+            "supplier_name": "ABC Supplier"
+          }
+        }
+      }
+    }
+  }'
+--header 'content-type: application/vnd.api+json'
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "data":{
+    "id":"147953",
+    "type":"engage-leads",
+    "links":{
+      "self":"http://some_url.com/api/v1/engage-leads/147953"
+    },
+    "attributes":{
+      "name":"Mars Rover",
+      "email":"msrover9a@test.com",
+      "address":"123 Somewhere",
+      "city":"Assonet",
+      "state":"MA",
+      "zipcode":"02702",
+      "phone":"(888) 555-1212",
+      "metadata":{
+        "propane_use":["primary_heat-medium", "hot_water","cooking_range"],
+        "owns_tank":true,
+        "annual_usage":500,
+        "underground_tank":false,
+        "tank_count":2,
+        "total_tank_size":700,
+        "previous_supplier":"prev sup",
+        "quote":[{"ppg":2.18,"supplier_name":"ABC Supplier","created_at":"2017-08-02T08:26:19.360-07:00"}]
+      }
+    }
+  }
 }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint creates a new user/applicant. Used when applicant signs up on tankfarmgroup.com website.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<aside class="notice">
+Content-type must be <code>application/vnd.api+json</code>
+</aside>
 
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint retrieves a specific kitten.
+<aside class="warning">
+Dupe emails will cause an error but it will update some information on the user about the dupe submit attempt.
+It also records all the form data submitted for each dupe request.
+</aside>
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`POST curl "https://some_url.com/api/v1/engage-leads`
 
-### URL Parameters
+### Request body parameters (top level)
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+Parameter | Type | Description
+--------- | ---- | -----------
+data | json | Contains `type` and `attributes` keys
 
+### Request body parameters (data)
+
+Parameter | Type | Description
+--------- | ---- | -----------
+type | string | `engage-leads`
+attributes | json | User data to populate
+
+### Request body parameters (data/attributes)
+
+Parameter | Type | Description
+--------- | ---- | -----------
+name | Integer | Applicants full name
+email | Boolean |
+address | String |
+city | String |
+state | String | Two digit state code
+zipcode | String | Five digit ZIP code
+phone | String |
+metadata | json | User related metadata - mostly propane related.
+
+### Request body parameters (data/attributes/metadata)
+
+Parameter | Type | Description
+--------- | ---- | -----------
+propane_use | Array | e.g. primary_head-medium, hot_water, etc
+owns_tank | Boolean | true or false
+annual_usage | Integer | amount of propane used per year
+underground_tank | Boolean | true (yes underground) or false (above ground)
+tank_count | Integer | number of propane tanks
+total_tank_size | Integer | sum of propane tank gallons
+previous_supplier | String |
+quote | json | quote provided by Tankfarm
+
+### Request body parameters (data/attributes/metadata/quote)
+Parameter | Type | Description
+--------- | ---- | -----------
+ppg | decimal | quoted price per gallon
+supplier_name | string | named of matched supplier
