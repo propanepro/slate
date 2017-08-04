@@ -295,7 +295,7 @@ You must replace <code>stage_123</code> with your personal API key.
 <blockquote>
 <p>To get a quote, use this code:</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://some_url.com/api/v1/quotes"</span>
+<pre class="highlight shell tab-shell"><code>curl --request GET <span class="s2">"https://some_url.com/api/v1/quotes"</span>
 -H <span class="s2">"Authorization: Token token=stage_123"</span>
 --data <span class="s1">'{"zipcode": "11001", "annual_usage": 100, "owns_tank": true}'</span>
 --header <span class="s1">'content-type: application/json'</span>
@@ -355,7 +355,7 @@ You must replace <code>stage_123</code> with your personal API key.
 For this particular request body parameters use underscores while the returned JSON
 uses dashes.
 </aside>
-<h2 id='create-an-applicant'>Create an applicant</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://some_url.com/api/v1/engage-leads"</span>
+<h2 id='create-an-applicant'>Create an applicant</h2><pre class="highlight shell tab-shell"><code>curl --request POST <span class="s2">"https://some_url.com/api/v1/engage-leads"</span>
 -H <span class="s2">"Authorization: Token token=stage_123"</span>
 --data
   <span class="s1">'{
