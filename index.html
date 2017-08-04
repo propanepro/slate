@@ -236,6 +236,26 @@
               </ul>
           </li>
           <li>
+            <a href="#other-endpoints" class="toc-h1 toc-link" data-title="Other Endpoints">Other Endpoints</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#status" class="toc-h2 toc-link" data-title="Other Endpoints">Status</a>
+                  </li>
+                  <li>
+                    <a href="#tf-crm" class="toc-h2 toc-link" data-title="Other Endpoints">TF-CRM</a>
+                  </li>
+                  <li>
+                    <a href="#propane-pro" class="toc-h2 toc-link" data-title="Other Endpoints">Propane.pro</a>
+                  </li>
+                  <li>
+                    <a href="#webhooks" class="toc-h2 toc-link" data-title="Other Endpoints">Webhooks</a>
+                  </li>
+                  <li>
+                    <a href="#engage-brandcraft-2" class="toc-h2 toc-link" data-title="Other Endpoints">Engage/Brandcraft</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </div>
@@ -561,6 +581,70 @@ It also records all the form data submitted for each dupe request.
 <td>named of matched supplier</td>
 </tr>
 </tbody></table>
+<h1 id='other-endpoints'>Other Endpoints</h1>
+<p>Just a list of endpoints we want to keep track of.</p>
+<h2 id='status'>Status</h2>
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Action/Controller</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>GET &quot;/&quot;</td>
+<td>PagesController#status</td>
+</tr>
+</tbody></table>
+<h2 id='tf-crm'>TF-CRM</h2>
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Action/Controller</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>POST &quot;/api/v1/users&quot;</td>
+<td>Api::V1::UsersController#update</td>
+</tr>
+<tr>
+<td>PUT &quot;/api/v1/users/61603?include=signup-by&amp;context_current_user_id=135947&quot;</td>
+<td>Api::V1::UsersController#update</td>
+</tr>
+</tbody></table>
+<h2 id='propane-pro'>Propane.pro</h2>
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Action/Controller</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>POST &quot;/api/v1/pp-leads&quot;</td>
+<td>Api::V1::PpLeadsController#create</td>
+</tr>
+</tbody></table>
+<h2 id='webhooks'>Webhooks</h2>
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Action/Controller</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>POST &quot;/api/v1/sendinblue_webhook&quot;</td>
+<td>Api::V1::WebhooksController#sendinblue</td>
+</tr>
+<tr>
+<td>POST &quot;/api/v1/opt_out_webhook&quot;</td>
+<td>Api::V1::WebhooksController#opt_out</td>
+</tr>
+<tr>
+<td>POST &quot;/api/v1/dial_call_status_webhook/25578&quot;</td>
+<td>Api::V1::WebhooksController#dialCallStatus</td>
+</tr>
+</tbody></table>
+<h2 id='engage-brandcraft-2'>Engage/Brandcraft</h2>
+<p>See Engage/Brandcraft section</p>
 <h1 id='errors'>Errors</h1>
 <p>TF-api uses the following error codes:</p>
 
