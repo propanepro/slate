@@ -48,7 +48,7 @@ You must replace <code>stage_123</code> with your personal API key.
 > To get a quote, use this code:
 
 ```shell
-curl "https://some_url.com/api/v1/quotes"
+curl --request GET "https://some_url.com/api/v1/quotes"
 -H "Authorization: Token token=stage_123"
 --data '{"zipcode": "11001", "annual_usage": 100, "owns_tank": true}'
 --header 'content-type: application/json'
@@ -100,7 +100,7 @@ uses dashes.
 ## Create an applicant
 
 ```shell
-curl "https://some_url.com/api/v1/engage-leads"
+curl --request POST "https://some_url.com/api/v1/engage-leads"
 -H "Authorization: Token token=stage_123"
 --data
   '{
