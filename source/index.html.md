@@ -225,3 +225,38 @@ Parameter | Type | Description
 --------- | ---- | -----------
 ppg | decimal | quoted price per gallon
 supplier_name | string | named of matched supplier
+
+# Other Endpoints
+
+Just a list of endpoints we want to keep track of.
+
+## Status
+
+Type | Action/Controller
+---- | ----
+GET "/" | PagesController#status
+
+## TF-CRM
+
+Type | Action/Controller
+---- | ----
+POST "/api/v1/users" | Api::V1::UsersController#update
+PUT "/api/v1/users/61603?include=signup-by&context_current_user_id=135947" | Api::V1::UsersController#update
+
+## Propane.pro
+
+Type | Action/Controller
+---- | ----
+POST "/api/v1/pp-leads" | Api::V1::PpLeadsController#create
+
+## Webhooks
+
+Type | Action/Controller
+---- | ----
+POST "/api/v1/sendinblue_webhook" | Api::V1::WebhooksController#sendinblue
+POST "/api/v1/opt_out_webhook" | Api::V1::WebhooksController#opt_out
+POST "/api/v1/dial_call_status_webhook/25578" | Api::V1::WebhooksController#dialCallStatus
+
+## Engage/Brandcraft
+
+See Engage/Brandcraft section
